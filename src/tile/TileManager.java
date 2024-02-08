@@ -12,6 +12,7 @@ import main.GamePanel;
 
 public class TileManager {
   public Tile[] tile;
+
   GamePanel gp;
   String filePath = new File("").getAbsolutePath();
 
@@ -24,8 +25,6 @@ public class TileManager {
   }
 
   public void getTileImage() {
-    String filePath = new File("").getAbsolutePath();
-
     try {
       tile[0] = new Tile();
       tile[0].img = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
@@ -42,6 +41,10 @@ public class TileManager {
 
       tile[5] = new Tile();
       tile[5].img = ImageIO.read(getClass().getResourceAsStream("/tiles/southpath.png"));
+
+      tile[6] = new Tile();
+      tile[6].img = ImageIO.read(getClass().getResourceAsStream("/tiles/rock.png"));
+      tile[6].collision = true;
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -63,8 +66,9 @@ public class TileManager {
     for (y = 0; y < yMax; ++y) {
       for (x = 0; x < xMax; ++x) {
         int tileNum = scr.nextInt();
-        g2.drawImage(tile[tileNum].img, x * gp.tileSize - gp.player.xPos,
-            y * gp.tileSize - gp.player.yPos, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[tileNum].img, x * gp.tileSize - gp.player.xPos, y * gp.tileSize - gp.player.yPos, gp.tileSize,
+            gp.tileSize, null);
+
       }
     }
 
