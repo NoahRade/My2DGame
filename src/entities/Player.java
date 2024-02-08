@@ -6,22 +6,23 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 
-
 public class Player {
   int speed = 8;
-  public int xPos = 0;
+  public int xPos;
   public int yPos = 0;
   KeyHandler keyH;
   boolean isWalkingUp, isWalkingDown, isWalkingLeft, isWalkingRight;
+  boolean upUnpassable, downUnpassable, leftUnpassable, rightUnpassable;
   BufferedImage img;
   GamePanel gp;
-  
+
   public Player(KeyHandler keyH, GamePanel gp) {
     this.keyH = keyH;
     this.gp = gp;
+    xPos = 1 * gp.tileSize;
     setImg("/character/south.png");
   }
-  
+
   public void setImg(String str) {
     try {
       img = ImageIO.read(getClass().getResourceAsStream(str));
@@ -29,14 +30,13 @@ public class Player {
       e.printStackTrace();
     }
   }
-  
+
   public void draw(Graphics2D g2) {
-    
-    g2.drawImage(img, gp.scrnWidth/2 - gp.tileSize/2, gp.scrnHeight/2, gp.tileSize, gp.tileSize, null);
+
+    g2.drawImage(img, gp.scrnWidth / 2 - gp.tileSize / 2, gp.scrnHeight / 2, gp.tileSize, gp.tileSize, null);
   }
-  
-  
-  public void updatePlayer() {    
+
+  public void updatePlayer() {
     if ((keyH.upPressed || isWalkingUp) && !isWalkingDown && !isWalkingLeft && !isWalkingRight) {
       yPos -= speed;
       setImg("/character/north.png");
@@ -45,7 +45,7 @@ public class Player {
       } else {
         isWalkingUp = true;
       }
-      
+
     } else if ((keyH.downPressed || isWalkingDown) && !isWalkingUp && !isWalkingLeft && !isWalkingRight) {
       yPos += speed;
       setImg("/character/south.png");
@@ -54,8 +54,8 @@ public class Player {
       } else {
         isWalkingDown = true;
       }
-      
-    } else if ((keyH.leftPressed || isWalkingLeft)&& !isWalkingDown && !isWalkingUp && !isWalkingRight) {
+
+    } else if ((keyH.leftPressed || isWalkingLeft) && !isWalkingDown && !isWalkingUp && !isWalkingRight) {
       xPos -= speed;
       setImg("/character/west.png");
       if (xPos % 64 == 0) {
@@ -63,8 +63,8 @@ public class Player {
       } else {
         isWalkingLeft = true;
       }
-      
-    } else if ((keyH.rightPressed || isWalkingRight)&& !isWalkingDown && !isWalkingLeft && !isWalkingUp) {
+
+    } else if ((keyH.rightPressed || isWalkingRight) && !isWalkingDown && !isWalkingLeft && !isWalkingUp) {
       xPos += speed;
       setImg("/character/east.png");
       if (xPos % 64 == 0) {

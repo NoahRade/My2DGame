@@ -12,13 +12,15 @@ import main.GamePanel;
 
 public class TileManager {
   public Tile[] tile;
-
+  public Tile[][] tileArray;
   GamePanel gp;
   String filePath = new File("").getAbsolutePath();
+  int mapWidth = 24, mapHeight = 28;
 
   public TileManager(GamePanel gp) {
     this.gp = gp;
     tile = new Tile[10];
+    tileArray = new Tile[mapWidth][mapHeight];
 
     getTileImage();
 
@@ -53,8 +55,6 @@ public class TileManager {
 
   public void draw(Graphics2D g2) {
     int x, y;
-    int xMax = 24;
-    int yMax = 28;
     Scanner scr = null;
 
     try {
@@ -63,11 +63,12 @@ public class TileManager {
       e.printStackTrace();
     }
 
-    for (y = 0; y < yMax; ++y) {
-      for (x = 0; x < xMax; ++x) {
+    for (y = 0; y < mapHeight; ++y) {
+      for (x = 0; x < mapWidth; ++x) {
         int tileNum = scr.nextInt();
-        g2.drawImage(tile[tileNum].img, x * gp.tileSize - gp.player.xPos, y * gp.tileSize - gp.player.yPos, gp.tileSize,
-            gp.tileSize, null);
+        System.out.println(gp.player.xPos);
+        g2.drawImage(tile[tileNum].img, x * gp.tileSize - gp.player.xPos, y * gp.tileSize - gp.player.yPos,
+            gp.tileSize, gp.tileSize, null);
 
       }
     }
