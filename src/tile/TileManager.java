@@ -51,7 +51,7 @@ public class TileManager {
   public void draw(Graphics2D g2) {
     int x, y;
     int xMax = 24;
-    int yMax = 6;
+    int yMax = 28;
     Scanner scr = null;
 
     try {
